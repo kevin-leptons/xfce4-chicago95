@@ -6,16 +6,16 @@ XFCE4-CHICAGO95
         Kevin Leptons <kevin.leptons@gmail.com>
         LGPL License
         Nov, 2017
-        
+
 FEATURE
 =======
 
-        - Run on XFCE4 
+        - Run on XFCE4
         - Window95 theme
         - Debian packaging
         - Exclude few of components in original package
 
-        ![screenshot](asset/screenshot.png)
+![screenshot](asset/screenshot.png)
 
 BUILD
 =====

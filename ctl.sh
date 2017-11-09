@@ -32,6 +32,8 @@ ctl_dist()
         cp ${SRC}/debian/control ${DIST_ROOT}/DEBIAN
         sed -i -- "s/\$NAME/${NAME}/g" ${DIST_ROOT}/DEBIAN/control
         sed -i -- "s/\$VERSION/${VERSION}/g" ${DIST_ROOT}/DEBIAN/control
+        sed -i -- "s/\$PACKAGE_VERSION/${PACKAGE_VERSION}/g" \
+                ${DIST_ROOT}/DEBIAN/control
         dpkg-deb --build -D $DIST_ROOT $DIST
 }
 

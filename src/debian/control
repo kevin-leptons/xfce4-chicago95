@@ -1,5 +1,5 @@
 Package: $NAME
-Version: $VERSION
+Version: $VERSION-$PACKAGE_VERSION
 Section: base
 Priority: optional
 Architecture: all

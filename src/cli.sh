@@ -4,7 +4,10 @@ cli_active()
 {
         xfconf-query -c xsettings -p /Net/ThemeName -s "chicago95"
         xfconf-query -c xsettings -p /Net/IconThemeName -s "chicago95"
-        xfconf-query -c xsettings -p /Net/CursorThemeName -s "chicago95"
+	xfconf-query -c xsettings -p /Gtk/KeyThemeName -s "chicago95"
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s \
+		"chicago95_cursor_black"
+	xfconf-query -c xfwm4 -p /general/theme -s "chicago95"
 
 }
 
@@ -12,7 +15,9 @@ cli_restore()
 {
         xfconf-query -c xsettings -p /Net/ThemeName -s "Xfce-4.0"
         xfconf-query -c xsettings -p /Net/IconThemeName -s "Tango"
-        xfconf-query -c xsettings -p /Net/CursorThemeName -s "Default"
+	xfconf-query -c xsettings -p /Gtk/KeyThemeName -s "Default"
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Default"
+	xfconf-query -c xfwm4 -p /general/theme -s "Default"
 
 }
 

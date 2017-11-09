@@ -1,0 +1,1830 @@
+/* NOTES to contributors:
+ * use 4 spaces indents, and keep code ALIGNED and ORDERED */
+
+/* default */
+* {
+    -GtkHTML-link-color: @link_color;
+    -GtkIMHtml-hyperlink-color: @link_color;
+    -GtkMenu-horizontal-offset: 5px;
+    -GtkScrollbar-has-backward-stepper: true;
+    -GtkScrollbar-has-forward-stepper: true;
+    -GtkScrolledWindow-scrollbar-spacing: 0;
+    -GtkTextView-error-underline-color: @error_color;
+    -GtkToolButton-icon-spacing: 6;
+    -GtkToolItemGroup-expander-size: 8;
+    -GtkTreeView-expander-size: 8;
+    -GtkWindow-resize-grip-height: 0;
+    -GtkWindow-resize-grip-width: 0;
+    -WnckTasklist-fade-overlay-rect: 0;
+
+    -GtkTreeView-horizontal-separator: 1;
+    -GtkTreeView-grid-line-width: 1;
+    -GtkTreeView-grid-line-pattern: '';
+    -GtkTreeView-tree-line-width: 1;
+    -GtkTreeView-tree-line-pattern: '';
+
+    background-clip: padding-box;
+
+    outline-width: 1px;
+    outline-offset: 0px;
+    outline-color: #808080;
+    outline-style: solid;
+
+    /* inherit colors from parent */
+    color: inherit;
+    background-color: inherit;
+    min-width: 8px;
+    min-height: 8px;
+
+}
+
+.background {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}
+
+iconview:selected,
+/*iconview in nautilus breaks without this, but with it radio and check buttons background break in lists... */
+:not(check):not(radio).view:selected,
+:selected,
+selection {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+:disabled,
+:disabled:disabled {
+    color: #808080;
+    text-shadow: 1px 1px 0 @border_bright;
+    -gtk-icon-effect: dim;
+}
+
+:focus {
+    outline: 1px dotted @border_dark;
+    -gtk-outline-radius: 0px;
+    outline-offset: -3px;
+}
+
+.gtkstyle-fallback {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback:hover {
+    background-color: shade(@theme_bg_color, 1.1);
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback:active {
+    background-color: shade(@theme_bg_color, 0.9);
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback:disabled {
+    background-color: shade(shade(@theme_bg_color, 0.95), 1.05);
+    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
+}
+
+.gtkstyle-fallback:selected {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+image,
+image:disabled,
+label,
+label:disabled,
+box,
+box:disabled,
+grid,
+grid:disabled {
+    background-color: transparent;
+    min-width: 0px;
+    min-height: 0px;
+}
+
+stepper, .stepper {
+    min-width: 16px;
+    min-height: 16px;
+    margin: 0px;
+}
+
+slider, .slider {
+    min-width: 10px;
+    background-color: @bg_color;
+}
+
+frame {
+    background-color: transparent;
+    padding: 3px;
+}
+.frame {
+    background-color: transparent;
+    padding: 0px;
+}
+
+/* since .view is white and frame is generally behind grey, lets nullify frame's padding */
+frame > list,
+frame > .view  {
+    margin: -2px;
+}
+frame > scrolledwindow {
+    margin: -3px;
+}
+
+/* frame always comes with a border element which is the one that should be decorated, but so far i found
+ * that decorating only the frame with sunken 2px is better */
+
+frame > label {
+    margin-left: 6px;
+}
+
+border.flat {
+    border-style: none;
+    box-shadow: none;
+}
+
+arrow {
+    background-image: url("assets/arrow-down.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 11px;
+    min-height: 10px;
+    min-width: 10px; 
+}
+:hover > arrow {
+    background-image: url("assets/arrow-down-selected.png");
+}
+
+tabs > arrow.up,
+expander arrow,
+arrow.right {
+    background-image: url("assets/arrow-right.png");
+}
+tabs > arrow.up:hover,
+expander arrow:hover,
+:hover > arrow.right {
+    background-image: url("assets/arrow-right-selected.png");
+}
+
+tabs > arrow.down,
+arrow.left {
+    background-image: url("assets/arrow-left.png");
+}
+tabs > arrow.down:hover,
+:hover > arrow.left {
+    background-image: url("assets/arrow-left-selected.png");
+}
+
+arrow.up {
+    background-image: url("assets/arrow-up.png");
+}
+:hover > arrow.up {
+    background-image: url("assets/arrow-up-selected.png");
+}
+
+expander arrow:checked,
+arrow.down {
+    background-image: url("assets/arrow-down.png");
+}
+expander arrow:checked:hover,
+:hover > arrow.down {
+    background-image: url("assets/arrow-down-selected.png");
+}
+
+
+/*****************
+ * Basic Effects *
+ *****************/
+
+/* Sunken flat 1px */
+button:checked,
+scrollbar button:active {
+    border-style: solid;
+    border-width: 1px;
+    border-color: @bg_shade;
+    border-radius: 0;
+    background-color: @bg_color;
+    box-shadow: none;
+}
+
+/* Sunken 1px */
+button.flat:selected, button.flat:active, button.flat:checked,
+toolbar button:selected, toolbar button:active, toolbar button:checked,
+levelbar trough,
+progressbar trough,
+menubar > menuitem:hover,
+separator {
+    border-style: solid;
+    border-width: 1px;
+    border-color: @bg_shade @bg_bright @bg_bright @bg_shade;
+    border-radius: 0;
+}
+
+/* Sunken 2px */
+stacksidebar list row:selected,
+stacksidebar list row:active,
+colorswatch:selected,
+calendar.view,
+frame,
+entry,
+slider,
+switch,
+.sidebar list,
+scale trough,
+combobox button:checked,
+popover button.flat:selected, popover button.flat:active,
+bbutton.appmenu:selected, button.appmenu:active
+button:selected, button:active,
+check, radio,
+scrolledwindow.frame,
+scrolledwindow:not(.frame) > viewport,
+/*stack.view > box,
+.nautilus-list-view,*/
+notebook:not(.frame) > stack > box {
+    border-style: solid;
+    border-width: 1px;
+    border-color: @bg_shade @bg_bright @bg_bright @bg_shade;
+    box-shadow: inset 1px 1px @bg_dark,
+                inset -1px -1px @bg_color;
+    border-radius: 0;
+}
+
+/* Raised 1px */
+button.appmenu
+button.flat,
+button.flat:hover:not(:active):not(:checked):not(:selected),
+toolbar button,
+toolbar button:hover:not(:active):not(:checked):not(:selected),
+menubar,
+toolbar:not(.inline-toolbar),
+stepper {
+    border-style: solid;
+    border-width: 1px;
+    border-color: @bg_bright @bg_shade @bg_shade @bg_bright;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Raised 2px */
+window > frame,
+stacksidebar list row,
+colorswatch,
+combobox > window,
+calendar.header,
+popover button.flat,
+button, .button,
+slider,
+notebook > header > tabs > tab,
+notebook.frame {
+    border-style: solid;
+    border-width: 1px;
+    border-color: @bg_color @bg_dark @bg_dark @bg_color;
+    box-shadow: inset 1px 1px @bg_bright,
+                inset -1px -1px @bg_shade;
+    border-radius: 0px;
+}
+
+/* Makes a checkerboard */
+stacksidebar list row:selected:hover,
+stacksidebar list row:selected,
+button:selected, button:active, button:checked,
+toolbar button:active,
+toolbar button:checked,
+slider:disabled,
+trough,
+paned > separator {
+    background-color: @border_bright;
+    background-image: linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%, #c0c0c0), linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%, @border_dark);
+    background-size: 2px 2px;
+    background-position: 0 0, 1px 1px;
+}
+
+
+/**********
+ * button *
+ **********/
+
+popover button.flat,
+button, .button {
+    padding: 4px;
+    margin: 2px;
+    background-color: @bg_color;
+}
+
+/* Button pressing contents shifting  */
+popover button.flat:checked,
+popover button.flat:active,
+button:checked,
+button:active {
+    padding: 5px 3px 3px 5px;
+}
+
+/* Slim  buttons */
+switch slider,
+scrollbar button,
+scrollbar slider,
+combobox button,
+button.flat,
+toolbar button,
+spinbutton button,
+stacksidebar list row,
+header button {
+    margin: 0px;
+    padding: 2px;
+    background-color: @bg_color;
+}
+
+
+stacksidebar list row:selected,
+stacksidebar list row:active,
+stacksidebar list row:checked,
+stacksidebar list row:selected:hover,
+button.flat:active,
+button.flat:checked,
+toolbar button:active,
+toolbar button:checked,
+switch slider:active,
+switch slider:checked,
+combobox button:checked,
+combobox button:active,
+spinbutton button:checked,
+spinbutton button:active {
+    padding: 3px 1px 1px 3px;
+}
+
+/* These have no button pressing effect */
+scrollbar button:checked,
+scrollbar button:active,
+scrollbar slider:checked,
+scrollbar slider:active {
+    padding: 2px;
+}
+header button:checked,
+header button:active {
+    padding: 0px;
+}
+
+/* button has no decoration untill active/hover etc */
+toolbar button,
+button.flat {
+    border-color: transparent;
+}
+
+viewport button.flat {
+    background-color: transparent;
+}
+
+
+/*******************
+ * check and radio *
+ *******************/
+
+/* disabling focus outline because it looks bad around the whole element... */
+radiobutton:focus,
+checkbutton:focus {
+    outline: 0px
+}
+
+/* ...instead we are going to enable it around the label */
+/* but outline doesen't work inside a label! so we use borders */
+radiobutton label,
+checkbutton label{
+    padding-left: 4px;
+    padding-right: 4px;
+    border: 1px dotted alpha(@border_dark,0);
+}
+
+radiobutton:focus label,
+checkbutton:focus label{
+    border: 1px dotted @border_dark;
+}
+
+check,
+radio {
+    min-width: 10px;
+    min-height: 10px;
+    background-color: @base_color;
+}
+
+check:disabled,
+radio:disabled {
+    background-color: @bg_color;
+}
+
+/* using a mix of css and background for now, radio still not perfect 
+ * with pure css box-shadow makes the circle look oval */
+radio {
+    background-image: url("assets/radio-inner-ring.png");
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+check:checked {
+    -gtk-icon-source: url("assets/check-check.png");
+    -gtk-icon-transform: none;
+}
+
+radio:checked {
+    -gtk-icon-source: url("assets/radio-check.png");
+}
+
+check:indeterminate,
+radio:indeterminate {
+    -gtk-icon-source: url("assets/check-indeterminate.png");
+}
+
+/* similar to checkbutton, used in popovers */
+modelbutton label   {
+    padding: 2px 6px;
+}
+
+
+/****************************
+ * viewport, iconview, view *
+ ****************************/
+
+viewport,
+viewport list,
+iconview,
+textview,
+view, .view,
+viewport.frame > frame,
+viewport.frame > box > frame,
+list.tweak-group,
+list.tweak-categories {
+    border-width: 0px;
+    background-color: @base_color;
+    color: @theme_text_color;
+}
+
+box.view {
+    background-color: @bg_color;
+    color: @fg_color;
+}
+
+view:disabled,
+view:disabled:disabled {
+    background-color: @bg_color;
+    color: @fg_color;
+}
+
+view:selected,
+view:selected:focus {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+iconview {
+    -GdMainIconView-icon-size: 48;
+}
+
+/*********************
+ * list cell and row *
+ *********************/
+
+cell,:not(check):not(radio).cell,
+row, :not(check):not(radio).row {
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: mix(@fg_color,@base_color,0.7);
+}
+/* remove :not(.frame) for less elements separated with horizontla lines */
+viewport:not(.frame) list row {
+    border-bottom: 0px;
+    padding: 0px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+list > row label,
+list > row image {
+    padding-left: 4px;
+    padding-right: 3px;
+}
+
+cell:selected,
+cell:selected:focus,
+row:selected,
+row:selected:hover,
+row:selected:focus {
+    background-color: @theme_selected_bg_color;
+    outline-width: 1px;
+    outline-offset: 0px;
+}
+
+list > separator {
+    border: 0px;
+    min-height: 0px;
+    min-width: 0px;
+}
+
+/* Exception for gnome-tweak-tool */
+list.tweak-group {
+    padding: 8px;
+}
+
+
+/*********
+ * paned *
+ *********/
+
+paned  {
+    margin: 2px;
+}
+
+paned > paned {
+    margin: 0px;
+}
+
+/*************
+ * separator *
+ *************/
+
+separator {
+    min-width: 0px;
+    min-height: 0px;
+}
+
+.horizontal separator {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.vertical separator {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+/* MUST KEEP min-width and min-height above zero, or else a default value of 4px is used! */
+paned > separator {
+    border: 0px;
+    min-width: 1px;
+    min-height: 1px;
+    -gtk-icon-source: none;
+}
+/* quodlibet likes to reset background-image here...
+paned separator {
+background-image: linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%, #c0c0c0), linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%, @border_dark);
+}*/
+
+
+paned.vertical > separator {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+paned.horizontal > separator {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+
+toolbar > separator {
+    margin: 0px 2px 0px 2px;
+}
+
+
+/************
+ * treeview *
+ ************/
+
+treeview {
+    -GtkTreeView-vertical-separator: 0;
+    outline-width: 1px;
+    outline-offset: 1px;
+}
+
+treeview.dnd {
+    border-width: 1px;
+    border-style: solid;
+    border-color: @theme_selected_bg_color;
+    border-radius: 0;
+}
+
+/* treeview misbehaves if we only define selection/focus globally */
+treeview:selected,
+treeview:selected:focus {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+treeview > check,
+treeview > radio:checked
+treeview radio:checked {
+    background-color: @base_color;
+}
+
+treeview entry {
+    border-radius: 0;
+    background-color: @theme_base_color;
+    background-image: none;
+}
+
+header > button {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+
+/*********
+ * entry *
+ *********/
+
+combobox > window > menu,
+entry {
+    padding: 2px;
+    background-color: @base_color;
+    color: @fg_color;
+}
+
+entry:disabled {
+    background-color: @bg_color;
+    color: @fg_color;
+    background-image: none;
+}
+
+
+/************
+ * combobox *
+ ************/
+
+combobox > box > button arrow,
+combobox > box > button {
+    min-width: 16px;
+    min-height: 16px;
+}
+
+combobox  button {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+combobox entry {
+    margin-right: -24px;
+}
+
+
+/*************
+ * scrollbar *
+ *************/
+
+scrollbar {
+    min-width: 10px;
+    min-height: 10px;
+    padding: 0px;
+    border-width: 0px;
+}
+
+/* where is the junction? in scrollablewindow? doesent exists anymore? */
+scrollbar.junction,
+scrollbar .junction {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #c0c0c0;
+    background-color: red;
+}
+
+scrollbar.vertical slider {
+    min-height: 40px;
+    min-width: 10px;
+}
+scrollbar.horizontal slider {
+    min-width: 40px;
+    min-height: 10px;
+}
+
+scrollbar button {
+    -gtk-icon-source: none;
+    background-image: url("assets/arrow-down.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 9px;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+scrollbar.vertical button.up {
+    background-image: url("assets/arrow-up.png");
+}
+scrollbar.vertical button.up:disabled {
+    background-image: url("assets/arrow-up-disabled.png");
+}
+
+scrollbar.vertical button.down {
+    background-image: url("assets/arrow-down.png");
+}
+scrollbar.vertical button.down:disabled {
+    background-image: url("assets/arrow-down-disabled.png");
+}
+
+scrollbar.horizontal button.up {
+    background-image: url("assets/arrow-left.png");
+}
+scrollbar.horizontal button.up:disabled {
+    background-image: url("assets/arrow-left-disabled.png");
+}
+
+scrollbar.horizontal button.down {
+    background-image: url("assets/arrow-right.png");
+}
+scrollbar.horizontal button.down:disabled {
+    background-image: url("assets/arrow-right-disabled.png");
+}
+
+
+/*************
+ * assistant *
+ *************/
+
+/* FINDME */
+assistant .sidebar .highlight
+assistant .sidebar label.highlight {
+    font-weight: bold;
+}
+
+assistant .sidebar {
+    padding: 4px;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-right-color: @bg_shade;
+    border-radius: 0;
+}
+
+
+/****************
+ * drawing area *
+ ****************/
+
+/* FINDME */
+GtkDrawingArea {
+    background-color: @theme_base_color;
+}
+
+GtkDrawingArea:disabled {
+    background-color: shade(@theme_base_color, 0.9);
+}
+
+
+/***********
+ * gtkhtml *
+ ***********/
+
+/* FINDME */
+GtkHTML {
+    background-color: @theme_base_color;
+    color: @theme_text_color;
+}
+
+
+/************
+ * calendar *
+ ************/
+
+calendar {
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-right: 2px;
+    outline-offset: 0px;
+}
+
+calendar.header {
+    background-color: @bg_color;
+}
+
+
+/************
+ * expander *
+ ************/
+
+expander arrow {
+    min-width: 16px;
+    min-height: 16px;
+}
+
+
+/*******************
+ * scrolled window *
+ *******************/
+
+/* avoid double borders when a viewport is
+ * packed into a GtkScrolledWindow 
+ scrolledwindow viewport {
+ border-style: none;
+ } */
+
+scrolledwindow.frame,
+scrolledwindow {
+    padding: 0px;
+    padding-bottom: 0px;
+    margin: 1px;
+}
+
+/* transmission misteriously resets border-width to zero, cant even force it here*/
+scrolledwindow.frame {
+    border-width: 1px;
+    padding: 1px;
+}
+
+
+/* nautilus seems to have a special transparent icon canvas, since scrolledwindow is also transparent
+the default background color is shown, lets paint it with the base color */
+.nautilus-window overlay > scrolledwindow {
+    background-color: @base_color;
+}
+
+
+/************
+ * iconview *
+ ************/
+
+iconview.view.cell {
+    border: 0px solid @border_dark;
+    border-radius: 0px;
+}
+
+
+/***********
+ * infobar *
+ ***********/
+
+infobar {
+    padding:2px;
+    border: 1px solid @border_dark;
+    border-radius: 1px;
+}
+
+/* The Info bar uses the colors and button layout from clippy! */
+
+.info {
+    background-color: @info_bg_color;
+    color: @info_fg_color;
+}
+
+.warning {
+    background-color:  @warning_bg_color;
+    color: @warning_fg_color;
+}
+
+.question {
+    background-color:  @question_bg_color;
+    color: @question_fg_color;
+}
+
+.error {
+    background-color:  @error_bg_color;
+    color: @error_fg_color;
+}
+
+
+/*******************
+ * symbolic images *
+ *******************/
+
+/* FINDME */
+.image {
+    color: alpha(currentColor, 0.5);
+}
+
+.image:hover {
+    color: alpha(currentColor, 0.9);
+}
+
+.image:selected,
+.image:selected:hover {
+    color: @theme_selected_fg_color;
+}
+
+.view.image,
+.view.image:hover {
+    color: alpha(currentColor, 0.9);
+}
+
+.view.image:selected,
+.view.image:selected:hover {
+    color: @theme_selected_fg_color;
+}
+
+
+/***********
+ * menubar *
+ ***********/
+
+menubar, .menubar {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    -GtkWidget-window-dragging: true;
+}
+
+
+
+/***************
+ * menubaritem *
+ ***************/
+/* can't track proper hovering of the menubaritem, only activation for now */
+
+menubar > menuitem {
+    padding: 0px 4px;
+    border: 1px solid transparent;
+    margin: 0px;
+}
+
+
+/************
+ * menuitem *
+ ************/
+
+menu menuitem {
+    padding: 2px;
+    border-width: 0;
+}
+
+
+menu menuitem:active,
+menu menuitem:hover {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+menuitem > check,
+menuitem > radio,
+menuitem > label {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+menuitem > box > image {
+    padding-right: 4px;
+}
+
+
+/************
+ * notebook *
+ ************/
+
+/* Must paint over the notebook.frame top bevel by filling the header and 
+using borders or box-shadows on one side of the header > tabs */
+
+notebook.frame,
+notebook {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px;
+}
+notebook > header {
+    background-color: @bg_color;
+}
+notebook > stack{
+    margin: 3px;
+}
+notebook:not(.frame) > stack {
+    padding: 0px;
+    margin: 0px;
+}
+notebook > header > tabs > tab {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+notebook > header.left > tabs > tab:checked {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+notebook > header > tabs > tab label {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* Note to self: bottom and right use a newer method better than top and left, update them
+in the future... */
+
+/* TOP tabs */
+notebook > header.top {
+    margin-left: -1px; 
+    margin-right: -1px; 
+}
+notebook > header.top > tabs {
+    border-style: solid;
+    border-width: 1px 1px 0px 1px;
+    border-color: alpha(@bg_color,0.0);
+    box-shadow: inset 0px 0px @bg_shade,
+                inset 0px -1px @bg_bright;
+
+    margin-left: 2px;
+    margin-right: 2px;
+}
+notebook > header.top > tabs > tab {
+    /* raised 2px EXCEPTION */
+    border-bottom: 0px;
+    box-shadow: inset 1px 1px @bg_bright,
+                inset -1px 0px @bg_shade;
+
+    margin-top: 2px;
+    margin-bottom: 1px;
+    border-top-left-radius: 2px 6px;
+    border-top-right-radius: 2px 6px;
+
+}
+notebook > header.top > tabs > tab:checked {
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    margin-left: -3px;
+    margin-right: -3px;
+}
+
+
+/* LEFT tabs */
+notebook > header.left {
+    margin-top: -1px; 
+    margin-bottom: -1px; 
+}
+notebook > header.left > tabs {
+    border-style: solid;
+    border-width: 1px 0px 1px 1px;
+    border-color: alpha(@bg_color,0.0);
+    box-shadow: inset 0px 0px @bg_bright,
+                inset -1px 0px @bg_bright;
+
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+notebook > header.left > tabs > tab {
+    /* raised 2px EXCEPTION */
+    border-right: 0px;
+    box-shadow: inset 1px 1px @bg_bright,
+                inset 0px -1px @bg_shade;
+
+    margin-left: 2px;
+    margin-right: 1px;
+    border-top-left-radius: 6px 2px;
+    border-bottom-left-radius: 6px 2px;
+
+}
+notebook > header.left > tabs > tab:checked {
+    margin-left: 0px;
+    margin-right: 0px;
+
+    margin-top: -3px;
+    margin-bottom: -3px;
+}
+
+
+/* BOTTOM tabs */
+notebook > header.bottom {
+    margin-left: 0px; 
+    margin-right: -3px; 
+    margin-bottom: -2px;
+}
+notebook > header.bottom > tabs {
+    border-style: solid;
+    border-width: 1px 0px 0px 0px;
+    border-color: @bg_shade;
+    box-shadow: inset 0px 1px @bg_dark,
+                inset 0px 0px @bg_bright;
+
+    margin-left: 2px;
+    margin-right: 2px;
+}
+notebook > header.bottom > tabs > tab {
+    /* raised 2px EXCEPTION */
+    border-top: 0px;
+    box-shadow: inset 1px 0px @bg_bright,
+                inset -1px -1px @bg_shade;
+
+    margin-top: 0px;
+    margin-bottom: 1px;
+    border-bottom-left-radius: 2px 6px;
+    border-bottom-right-radius: 2px 6px;
+
+}
+notebook > header.bottom > tabs > tab:checked {
+    margin-top: -1px;
+    margin-bottom: -1px;
+
+    margin-left: -3px;
+    margin-right: -3px;
+}
+
+
+/* RIGHT tabs */
+notebook > header.right {
+    margin-top: 0px; 
+    margin-bottom: -3px; 
+    margin-right: -2px;
+}
+notebook > header.right > tabs {
+    border-style: solid;
+    border-width: 0px 0px 0px 1px;
+    border-color: @bg_shade;
+    box-shadow: inset 1px 0px @bg_dark,
+                inset 0px 0px @bg_bright;
+
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+notebook > header.right > tabs > tab {
+    /* raised 2px EXCEPTION */
+    border-left: 0px;
+    box-shadow: inset 0px 1px @bg_bright,
+                inset -1px -1px @bg_shade;
+
+    margin-left: 0px;
+    margin-right: 1px;
+    border-top-right-radius: 6px 2px;
+    border-bottom-right-radius: 6px 2px;
+
+}
+notebook > header.right > tabs > tab:checked {
+    margin-left: -1px;
+    margin-right: -1px;
+
+    margin-top: -3px;
+    margin-bottom: -3px;
+}
+
+
+/* get the outline into the label... */
+notebook tab {
+    outline: 1px dotted @border_dark;
+    outline-offset: -5px;
+}
+
+/* nautilus button still wonky... */
+notebook header tabs button.flat,
+notebook header tabs button {
+    margin-left: 4px;
+    margin-right: 5px;
+}
+
+tabs > arrow {
+    background-color: transparent;
+    padding: 2px;
+    -gtk-icon-source: none;
+}
+
+
+/***********************************
+ * progressbar, levelbar and scale *
+ ***********************************/
+
+levelbar,
+progressbar {
+    padding: 2px;
+}
+
+levelbar trough,
+progressbar trough {
+    background-color: @bg_color;
+}
+
+levelbar.horizontal trough,
+progressbar.horizontal trough,
+progressbar.horizontal progress {
+    min-height: 14px;
+}
+
+levelbar.vertical trough,
+progressbar.vertical trough,
+progressbar.vertical progress {
+    min-width: 14px;
+    min-height: 60px; /* vertical progressbar is squished in awf... */
+}
+
+levelbar block,
+progressbar progress {
+    background-image: none;
+    background-color: @selected_bg_color; 
+}
+
+levelbar block.empty {
+    background-color: @bg_color;
+}
+
+levelbar.vertical.discrete block {
+    margin-top: 2px;
+}
+
+levelbar.horizontal.discrete block {
+    margin-right: 2px;
+}
+
+scale.vertical {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 1px 7px 1px 7px;
+}
+
+scale.horizontal {
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 9px 1px 9px 1px;
+}
+
+scale trough {
+    min-width: 1px;
+    min-height: 1px;
+}
+
+scale highlight,
+scale empty {
+    min-width: 1px;
+    min-height: 1px;
+    background-color: transparent;
+}
+
+scale.vertical slider {
+    min-width: 1px;
+    min-height: 10px;
+    margin: 0px -12px 0px -12px;
+}
+scale.horizontal slider {
+    min-width: 10px;
+    min-height: 1px;
+    margin: -12px 0px -12px 0px;
+}
+
+/* there might be other cases where the inside is filled by other widgets */
+scale.color contents trough {
+    min-height: 8px;
+    min-width: 8px;
+}
+
+/* outline inside the trough node is terrible, this disables it but 
+can't put it in the slider...
+scale *:focus {
+outline: 0px;
+} */
+
+scale:focus trough {
+    outline-offset: 2px;
+}
+
+
+/****************
+ * stacksidebar *
+ ****************/
+
+stacksidebar > scrolledwindow { 
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+
+    box-shadow: none;
+}
+
+stacksidebar separator {
+    padding: 0px;
+    margin: 0px;
+}
+
+stacksidebar list {
+    margin: 0px;
+    background-color: @bg_color;
+}
+
+stacksidebar.sidebar list{
+    margin: 0px;
+}
+
+stacksidebar list row {
+    padding: 2px;
+    margin: 0px;
+}
+
+stacksidebar list row label {
+    padding: 3px;
+}
+
+stacksidebar list row:selected,
+stacksidebar list row:focus,
+stacksidebar list row:selected:focus,
+stacksidebar list row:selected:focus:hover,
+stacksidebar list row:selected:hover {
+    padding: 2px;
+    margin: 0px;
+    background-color: @border_bright;
+    color: @fg_color;
+}
+
+stacksidebar list row:selected,
+stacksidebar list row:selected:focus,
+stacksidebar list row:selected:hover {
+    outline: 1px dotted @border_dark;
+    -gtk-outline-radius: 0px;
+    outline-offset: -6px;
+}
+
+
+/***********
+ * sidebar *
+ ***********/
+
+.sidebar list {
+    padding: 1px;
+}
+
+placessidebar list > row,
+.sidebar list > row {
+    padding-bottom: 1px;
+    padding-left: 4px;
+    padding-right: 2px;
+}
+
+
+/**************
+ * spinbutton *
+ **************/
+
+spinbutton.horizontal button {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+spinbutton.horizontal entry {
+    min-width: 80px;
+    min-height: 12px;
+    margin-right: -46px;
+}
+
+spinbutton.vertical button {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+spinbutton.vertical entry {
+    min-width: 12px;
+}
+
+/**********
+ * switch *
+ **********/
+
+switch {
+    background-color: @base_color;
+}
+
+switch slider {
+    margin: 1px;
+    min-width: 18px;
+    min-height: 12px;
+}
+
+
+/***************
+ * Colorswatch *
+ ***************/
+
+colorswatch {
+    background-color: transparent;
+    background-clip: border-box;
+    padding: 2px;
+}
+
+colorswatch:selected overlay {
+    background-color: transparent;
+}
+
+colorswatch:selected {
+    background-color: transparent;
+}
+
+
+/*************************************************
+ * tooltip popover app-notification floating-bar *
+ *************************************************/
+
+.floating-bar,
+.app-notification,
+popover,
+popover.background,
+tooltip.background,
+tooltip {
+    background-color: @theme_tooltip_bg_color;
+    color: @theme_tooltip_fg_color;
+    border: 1px solid @border_dark;
+    box-shadow: none;
+}
+
+.app-notification,
+popover {
+    padding: 5px;
+    margin: 2px;
+}
+
+
+.floating-bar,
+popover,
+popover.background,
+tooltip.background,
+tooltip {
+    padding: 0px;
+    margin: 0px;
+}
+
+tooltip decoration {
+    border: 0px;
+    box-shadow: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+tooltip * {
+    background-color: @theme_tooltip_bg_color;
+    color: @theme_tooltip_fg_color;
+}
+
+
+/************************
+ * overshoot undershoot *
+ ************************/
+
+/* get rid of these frekin overshoots, this isen't a phone! */
+overshoot, undershoot {
+    background-color: transparent;
+}
+
+
+/*******
+ * osd *
+ *******/
+
+.background.osd {
+    color: @osd_fg;
+    background-color: @osd_bg;
+}
+
+overlay.osd {
+    background-color: transparent;
+}
+
+.osd.frame {
+    background-clip: border-box;
+    background-origin: border-box;
+}
+
+
+/******************************
+ * destructive action buttons *
+ ******************************/
+
+.destructive-action.button {
+    border-radius: 0px;
+    background-color: @error_color;
+    background-image: none;
+    color: mix(@theme_selected_fg_color, @error_color, 0.1);
+}
+
+
+/******************************
+ * suggested action buttons *
+ ******************************/
+.suggested-action.button {
+    color: @info_fg_color;
+    background-color: @info_bg_color;
+}
+
+
+/**************
+ * header-bar *
+ **************/
+
+headerbar .title {
+    font-weight: bold;
+    padding: 0 12px;
+}
+
+headerbar .subtitle {
+    font-size: smaller;
+    padding: 0 12px;
+}
+
+
+/***********
+ * toolbar *
+ ***********/
+
+toolbar {
+    -GtkWidget-window-dragging: true;
+    padding: 4px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+toolbar button {
+    min-width: 24px;
+    min-height: 24px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+frame toolbar {
+    margin: 1px;
+}
+
+
+/**********
+ * Window *
+ **********/
+decoration {
+    border-radius: 0px;
+    border: 0px;
+    /* this is so ridiculous but i could not do it with borders + box-shadow */
+    box-shadow: 0px 0px 0 1px @bg_dark, /* outter bottom + right */
+                -1px -1px 0px 0px @bg_color, -1px 0px 0px 0px @bg_color, 0px -1px 0px 0px @bg_color, /* outter top + left */
+                inset 1px 1px @bg_bright, /* inside top + left */
+                inset -1px -1px @bg_shade; /* inside bottom + right */
+    padding: 3px;
+    margin: 5px;
+}
+
+/* Server-side decoration (SSD) */
+window.ssd headerbar,
+window.ssd .titlebar {
+    border-radius: 0px;
+    padding: 0px;
+    margin: 0px;
+    border: 3px solid transparent;
+    border-bottom: 1px solid transparent;
+    background-color: @selected_bg_color;
+    background-image: none;
+    text-shadow: none;
+}
+window.ssd .titlebar:backdrop {
+    padding: 0px;
+    margin: 0px;
+    background-color: @selected_inactive_bg_color;
+    color: @selected_inactive_fg_color;
+}
+/*
+.default-decoration
+{
+background-color: red;
+border: 0px solid @bg_color;
+border-bottom: 0px;
+border-radius: 0px;
+}
+ */
+
+window.ssd .titlebar label{
+    padding: 0px;
+    margin: 0px;
+    font-size: 8pt;
+    color: @selected_fg_color;
+}
+
+window.ssd .titlebar label:backdrop,
+window.ssd .titlebar:backdrop label{
+    color: @selected_inactive_fg_color;
+}
+
+headerbar,
+.titlebar {
+    padding: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 0px;
+    background-color: @selected_bg_color;
+    background-image: none;
+    text-shadow: none;
+}
+
+headerbar:backdrop,
+.titlebar:backdrop {
+    background-image: none;
+    background-color: @selected_inactive_bg_color;
+}
+
+headerbar > label,
+.titlebar > label,
+headerbar > box > label,
+.titlebar > box > label {
+    font-size: 8pt;
+    color: @selected_fg_color;
+}
+
+headerbar:backdrop > label,
+.titlebar:backdrop > label,
+headerbar:backdrop > box > label,
+.titlebar:backdrop > box > label {
+    color: @selected_inactive_fg_color;
+}
+
+headerbar entry {
+    margin: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+/* we dont want any extra padding in those */
+menuitem > window,
+window > menu {
+    padding: 0px;
+}
+
+.titlebar button  {
+    margin: 0px;
+    padding: 0px;
+    min-width: 0px;
+    min-height: 0px;
+}
+
+.titlebar button label  {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+/* following button definitions allows us to have slim buttons on
+ * headerbars with no big elements while still maintaining a good
+ * looking headerbar with big elements */
+.titlebar button:not(.titlebutton) {
+    padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 1px;
+	padding-right: 1px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	min-height: 0px;
+	min-width: 0px;
+}
+
+
+headerbar button:not(.titlebutton) > image {
+	border: solid 1px;
+	border-color: transparent;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+}
+
+headerbar button:active:not(.titlebutton) > image {
+	border: solid;
+	border-color: transparent;
+	border-left-width: 2px;
+	border-right-width: 0px;
+	border-top-width: 2px;
+	border-bottom-width: 0px;
+}
+
+headerbar separator {
+	margin-right: 3px;
+	border-left-width: 1px;
+	border-style: solid;
+}
+
+headerbar scale {
+    margin-top: 4px;
+    margin-bottom: -6px;
+}
+
+window.csd tooltip {
+    border-radius: 0;
+    border: 0 none @border_dark;
+    box-shadow: none; 
+}
+
+.maximized > decoration,
+window.maximized,
+window.tiled {
+    border: 0px;
+    box-shadow: none;
+    margin: 0px;
+}
+
+window.ssd.maximized headerbar,
+window.ssd.maximized .titlebar {
+    border: 0px;
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+    margin: 0px;
+}
+
+.tiled headerbar,
+.maximized headerbar,
+.tiled .titlebar,
+.maximized .titlebar {
+    border: 0px;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/******************
+ * window buttons *
+ ******************/
+
+
+
+/* Makes the raised 2px effect slimmer on the top and left side */
+button.titlebutton {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border-top: 0px;
+    border-left: 0px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button.titlebutton:active:not(.appmenu),
+button.titlebutton:checked:not(.appmenu) {
+    padding: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    background-position: center 2px, center 2px;
+    background-repeat: no-repeat;
+}
+
+/* helps get hid of ugly fat buttons */
+/* also, image does not display any background image on ssd windows. thanks gnome devs. */
+.titlebutton image:not(.appmenu) {
+    padding: 0px;
+    margin-top: -1px;
+    margin-bottom: -2px;
+    margin-left: -1px;
+    min-width: 0px;
+    min-height: 0px;
+}
+
+.titlebutton.close,
+.titlebutton.maximize,
+.titlebutton.minimize {
+    color: transparent; /* FUCKING dirty secret to get rid of static symbols in these buttons */
+
+}
+
+.titlebutton.minimize {
+    background-image: url("buttons/icon-minimise.png");
+    background-size: 12px;
+}
+.titlebutton.minimize:backdrop {
+}
+.titlebutton.minimize:checked {
+
+}
+
+.titlebutton.maximize {
+    background-image: url("buttons/icon-maximise.png");
+    background-size: 11px;
+}
+.titlebutton.maximize:backdrop {
+}
+.titlebutton.maximize:checked {
+}
+
+.maximized .titlebutton.maximize  {
+    background-image: url("buttons/icon-restore.png");
+    background-size: 11px;
+}
+.maximized .titlebutton.maximize:active {
+}
+
+.titlebutton.close {
+    background-image: url("buttons/icon-close.png");
+    background-size: 10px;
+}
+.titlebutton.close:backdrop {
+}
+.titlebutton.close:checked {
+}
+
+/* Groups these buttons together */
+/* doesen't work on ssd windows. get your shit together gnome poeple */
+.titlebutton.close {
+    margin-right: 0px;
+    margin-left: -4px;
+}
+.titlebutton.maximize {
+    margin-left: -6px;
+}
+
+/* putting :not(.appmenu) in button.titlemenu breaks the main window buttons position,
+ * so restore any damage made to buttons styled with both .appmenu and .titlemenu here */
+button.appmenu {
+    border: solid 1px;
+    border-color: @bg_color @bg_dark @bg_dark @bg_color;
+    margin-top: 1px;
+    margin-left: 3px;
+    margin-right: 1px;
+    margin-bottom: 0px;
+	padding-bottom: 7px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 4px;
+}
+
+/* declaration of .view was causing problems with white background rubberband in nautilus, putting this here for now */
+flowbox rubberband, treeview.view rubberband, .content-view rubberband,
+.rubberband, rubberband {
+    border: 1px solid @border_dark;
+    background-color: transparent;
+    /* box-shadow: inset 1px 1px 0px 0px @border_dark,
+                   inset -1px -1px 0px 0px @border_dark; */
+}

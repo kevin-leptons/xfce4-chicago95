@@ -1,0 +1,8 @@
+Package: $NAME
+Version: $VERSION
+Section: base
+Priority: optional
+Architecture: all
+Depends: xfce4 
+Maintainer: Kevin Leptons<kevin.leptons@gmail.com>
+Description: XFCE4 Theme look like Window95

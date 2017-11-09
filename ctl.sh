@@ -28,6 +28,9 @@ ctl_dist()
         cp -r ${SRC}/Cursors/Chicago95_Cursor_Black \
                 ${DIST_ROOT}/usr/share/icons/${NAME}_cursor_black
 
+        mkdir -vp ${DIST_ROOT}/usr/bin
+        cp ${SRC}/cli.sh ${DIST_ROOT}/usr/bin/${NAME}
+
         mkdir -vp ${DIST_ROOT}/DEBIAN
         cp ${SRC}/debian/control ${DIST_ROOT}/DEBIAN
         sed -i -- "s/\$NAME/${NAME}/g" ${DIST_ROOT}/DEBIAN/control

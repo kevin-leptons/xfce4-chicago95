@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="chicago95"
+NAME="xfce4-chicago95"
 VERSION="1.0.0"
 PACKAGE_VERSION="1"
 DIST="dist"
@@ -9,9 +9,18 @@ SRC="src"
 
 ctl_help()
 {
-        echo "USAGE"        
+        echo "NAME"
+        echo "  $0 - Development console for this project"
+        echo ""
+
+        echo "SYNOPSIS"        
+        echo "  $0 COMMAND"
+        echo "  $0 --help, -h"
+        echo
+
+        echo "COMMAND"
         echo "  dist            Pack all of components into Debian package"
-        echo "  help, --h       Show help message"
+        echo "  clear           Clear temporary files"
 }
 
 ctl_dist()
@@ -48,6 +57,7 @@ ctl_clear()
 case "$1" in
         dist) ctl_dist; exit 0;;
         clear) ctl_clear; exit 0;;
+        --help) ctl_help; exit 0;;
         -h) ctl_help; exit 0;;
         *) ctl_help; exit 1;;
 esac
